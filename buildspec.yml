@@ -16,8 +16,8 @@ phases:
       - cp -r $(ls | grep -v '^output$') output/
       - rm -f output/buildspec.yml
 
-  post_build:
-    commands:
-      - echo "Build complete - $(ls -la output/)"
-      - echo "Invalidating Cloudfront cache..."
-      - aws cloudfront create-invalidation --distribution-id <CORRECT_ID> --paths "/*"
+post_build:
+  commands:
+    - echo "Build complete - $(ls -la output/)"
+    - echo "Invalidating Cloudfront cache..."
+    - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
